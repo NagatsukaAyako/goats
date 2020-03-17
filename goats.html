@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title> 
+    </head>
+    <body onload="doExec()">
+        <script>
+            function doExec(){
+                var interval;
+                var n = 5; // На сколько двигать за раз
+                var s = 5;//Количество строк
+                var width = document.documentElement.clientWidth; // Ширина экрана  
+                var imgWidth = 231; // Ширина картинки
+                var imgHeight = 253;// Высота картинки
+                var amount = Math.floor(width / imgWidth) + 2;
+                var curPosX = [];
+                var img = []; 
+                for(var j = 0; j < s; j++)
+                    {
+                        img[j] = [];
+                        for(var i = 0; i< amount; i++)
+                        {
+                            img[j][i] = document.createElement('img');
+                            img[j][i].src = '248.gif';
+                            img[j][i].style.position = 'absolute';
+                            img[j][i].style.left = i * imgWidth + "px";
+                            img[j][i].style.top = j * imgHeight + "px"; 
+                            document.body.appendChild(img[j][i]); 
+                        }
+                    } 
+                for(var i = 0; i < amount; i++) {
+                    curPosX[i] = i * imgWidth;
+                }  
+
+                function move() {
+                    for(var j = 0; j < 5; j++)
+                    for(var i = 0; i < amount; i++)
+                    {
+                        img[j][i].style.left = (curPosX[i] -= n) + "px";
+                        if(curPosX[i]+imgWidth <= 0)
+                        {
+                            curPosX[i] = Math.floor(width/imgWidth + 1) * imgWidth;
+                            img[j][i].style.left = curPosX[i];
+                        }   
+                    }
+                }
+            interval = setInterval(move, 100);
+        }
+        </script>
+        <style>
+            body{
+                background-color: green;
+            }
+        </style>
+        <audio autoplay loop>
+            <source src="goat.mp3">
+        </audio>
+    </body>
+</html>
